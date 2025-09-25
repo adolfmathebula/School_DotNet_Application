@@ -12,6 +12,7 @@ The solution contains two main projects:
 - ASP.NET Core Web API
 - Entity Framework Core
 - Blazor
+- MySQL (via MySQL Workbench for SchoolDB)
 
 ---
 
