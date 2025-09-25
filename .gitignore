@@ -1,0 +1,52 @@
+# Build and Release folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+.vscode/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.ncb
+*.opendb
+*.cache
+*.pdb
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+*.psmdcp
+project.lock.json
+
+# Entity Framework Core
+Migrations/
+
+# Publish
+*.publishsettings
+publish/
+*.pubxml
+*.pubxml.user
+
+
+# Environment files
+appsettings.Development.json
+.env
+
+# Others
+Thumbs.db
+.DS_Store

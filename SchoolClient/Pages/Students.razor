@@ -1,0 +1,80 @@
+@page "/students"
+@using SchoolClient.Models
+@using SchoolClient.Services
+@using System.Net.Http
+@using System.Threading.Tasks
+@inject StudentService StudentService
+
+<h3>Students</h3>
+
+<div class="mb-4">
+    <h4>Add New Student</h4>
+    <input placeholder="Name" @bind="newStudent.Name" class="form-control mb-2" />
+    <input type="number" placeholder="Age" @bind="newStudent.Age" class="form-control mb-2" />
+    <button class="btn btn-primary" @onclick="AddStudent">Add Student</button>
+</div>
+
+<h4>Student List</h4>
+@if (students == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (students.Count == 0)
+{
+    <p>No students found.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in students)
+            {
+                <tr>
+                    <td>@student.Name</td>
+                    <td>@student.Age</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" @onclick="() => DeleteStudent(student.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Student> students = new();
+    private Student newStudent = new Student();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadStudents();
+    }
+
+    private async Task LoadStudents()
+    {
+        students = await StudentService.GetStudents();
+    }
+
+    private async Task AddStudent()
+    {
+        if (string.IsNullOrWhiteSpace(newStudent.Name) || newStudent.Age <= 0)
+            return;
+
+        await StudentService.AddStudent(newStudent);
+        newStudent = new Student(); 
+        await LoadStudents();
+    }
+
+    private async Task DeleteStudent(int id)
+    {
+        await StudentService.DeleteStudent(id);
+        await LoadStudents();
+    }
+}
